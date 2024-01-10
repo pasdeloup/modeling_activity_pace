@@ -1,6 +1,6 @@
 # Modeling Activity-Driven Music Listening with PACE
 
-Code for our paper "Modeling Activity-Driven Music Listening with PACE" by L. Marey, B. Sguerra and M. Moussallam.
+Code for our paper "Modeling Activity-Driven Music Listening with PACE" by L. Marey, B. Sguerra and M. Moussallam, accepted for publication in the proceedings of 2024 ACM SIGIR Conference on Human Information Interaction and Retrieval (CHIIR'24).
 
 ## Dependencies
 
