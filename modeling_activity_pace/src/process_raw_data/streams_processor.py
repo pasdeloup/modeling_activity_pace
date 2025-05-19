@@ -162,15 +162,24 @@ class ProcessStreams:
             n_subdivisions (int): Number of time subdivisions.
             instant_zero (datetime): Reference datetime for time range calculation.
         """
+        print("import data")
         self.import_data()
+        print("convert timestamps")
         self.convert_timestamps()
-        self.filter(min_date, max_date)
+        # print("filter")
+        # self.filter(min_date, max_date)  # Done in the data
+        print("build ids list")
         self.build_ids_list()
+        print("filter users")
         self.filter_users()
+        print("add time range")
         self.add_time_range(n_subdivisions, instant_zero)
+        print("add date")
         self.add_date()
-        self.compute_is_organic()
-        self.convert_context()
+        # print("compute is organic")
+        # self.compute_is_organic()
+        # print("convert context")
+        # self.convert_context()
         self.all_time_date_couples = set(
             [tuple(i) for i in self.df[["time_range", "date"]].to_numpy()]
         )
