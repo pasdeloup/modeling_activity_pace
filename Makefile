@@ -1,7 +1,7 @@
 # Names of the code directory and the Docker image, change them to match your project
-DOCKER_IMAGE_NAME := codeshare
-DOCKER_CONTAINER_NAME := codeshare
-CODE_DIRECTORY := codeshare_template
+DOCKER_IMAGE_NAME := modeling_activity_pace
+DOCKER_CONTAINER_NAME := modeling_activity_pace
+CODE_DIRECTORY := modeling_activity_pace
 
 DOCKER_PARAMS=  -it --rm --name=$(DOCKER_CONTAINER_NAME)
 # Specify GPU device(s) to use. Comment out this line if you don't have GPUs available
@@ -15,7 +15,7 @@ usage:
 	@echo "	run 		Run the Docker image in a container, after building it"
 	@echo "	run-bash	Same as 'run', and launches an interactive bash session in the container while mounting the current directory"
 	@echo "	stop		Stop the container if it is running"
-	@echo "	logs		Stop the container if it is running"
+	@echo "	logs		Display logs"
 	@echo "	poetry		Use poetry to modify 'pyproject.toml' and 'poetry.lock' files (e.g. 'make poetry add requests' to add the 'requests' package)"
 	@echo "	check		Check coding conventions using multiple tools"
 	@echo "	clean		Format your code using black and isort to fit coding conventions"
