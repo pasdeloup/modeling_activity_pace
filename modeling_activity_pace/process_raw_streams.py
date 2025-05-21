@@ -17,14 +17,11 @@ if __name__ == "__main__":
     stream_processor = ProcessStreams("data/raw/streams/", usr_drop_rate=0)
 
     # Process the streams data
-    print("PROCESS STREAMS")
     stream_processor.process(MIN_DATE, MAX_DATE, N_SUBDIVISION_1HOUR, INSTANT_ZERO)
 
     # Compute time series
-    print("COMPUTE TIME SERIES")
     stream_processor.compute_time_series()
 
-    print("SAVE TIME SERIES")
     # Save processed data to CSV files for each channel
     for channel_index, channel_name in enumerate(channel_names):
         # Create a DataFrame from the processed data
