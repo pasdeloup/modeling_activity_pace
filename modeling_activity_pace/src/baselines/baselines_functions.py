@@ -25,7 +25,7 @@ def compute_other_activities_baseline(cols_to_predict):
     Returns:
     - List of AUC scores.
     """
-    X_list = [load_data(f"data/processed/streams/X_{i}.csv") for i in channel_names]
+    X_list = [load_data(f"data/timeseries/X_{i}.csv") for i in channel_names]
 
     # Extract user IDs
     ids = get_ids_from_signals(X_list)
@@ -80,7 +80,7 @@ def compute_total_volume_baseline(cols_to_predict):
     """
 
     # Load volume data
-    df_volume = load_data("data/processed/streams/X_volume.csv")
+    df_volume = load_data("data/timeseries/X_volume.csv")
 
     # Sum the volume across time (transpose and sum)
     df = pd.DataFrame(df_volume.T.sum(), columns=["Total volume"])
@@ -155,4 +155,3 @@ def compute_baseline_scores(
     scores = perform_grid_search(X_train, X_test, y_train_, y_test_, cols_to_predict)
 
     return scores
-

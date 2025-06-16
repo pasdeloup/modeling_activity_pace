@@ -37,13 +37,12 @@ poetry run python modeling_activity_pace/<script.py>
 
 ## Scripts
 
-1. Raw user histories are trasformed into time series using `process_raw_streams.py`.
-2. User answers to survey are prepared using `process_raw_answers.py`.
-3. Dictionary Learning algorithm is run using `compute_dictionary.py`.
-4. The selection of the best iteration in dictionary learning is done using `choose_dictionary.py`.
-5. `compute_baselines.py` computes baselines scores and scores of PACE embeddings.
-6. `analyse_models.py` plots logistic regression coefficients and related statistical reports.
-7. `make_fig1.py` saves the plot of Figure 1.
+1. User logs are transformed into time series using `compute_time_series.py`.
+2. Dictionary Learning algorithm is run using `compute_dictionary.py`.
+3. The selection of the best iteration in dictionary learning is done using `choose_dictionary.py`.
+4. `compute_baselines.py` computes baselines scores and scores of PACE embeddings.
+5. `analyse_models.py` plots logistic regression coefficients and related statistical reports.
+6. `make_fig1.py` saves the plot of Figure 1.
 
 ## Data
 
@@ -54,15 +53,12 @@ Input data folder must be organized as follows :
 pace/
 │
 └── data/
-  └── raw/
-    ├── streams/
-    │ ├── one_year_all_respondents000000000000.csv
-    │ ├── ...
-    │ └── one_year_all_respondents0000000000399.csv
-    ├── other/
-    │ └── user_favorites.csv
-    └── answers/
-      └── records.csv
+  └── answers/
+      └── processed_records.csv
+  ├── streams/
+  │ ├── processed_streams_000000000000.csv
+  │ ├── ...
+  │ └── processed_streams_000000000091.csv
 ```
 
 Where ```one_year_all_respondents.csv``` files are stream history csv files with columns :  ```user_id, ts_listen, media_id, context_id, context_type, listening_time, context_4```.

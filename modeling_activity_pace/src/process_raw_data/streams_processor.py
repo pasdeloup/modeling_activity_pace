@@ -22,7 +22,6 @@ class ProcessStreams:
         """
         self.path = path
         self.usr_drop_rate = usr_drop_rate
-        self.liked_df = load_data("data/raw/other/user_favorites.csv").reset_index()
 
     def import_data(self):
         """
@@ -35,7 +34,6 @@ class ProcessStreams:
             )
         ]
         self.df = pd.concat(df_list)
-        # self.df = self.df[self.df["user_id"].isin(self.df.user_id.tolist()[:500] + [3356219324])]
 
     def convert_timestamps(self):
         """
@@ -45,19 +43,21 @@ class ProcessStreams:
             dt.datetime.fromtimestamp
         )
 
-    def filter(self, min_date, max_date):
-        """
-        Filter the DataFrame based on date and listening time.
+    # def filter(self, min_date, max_date):
+    #     """
+    #     Filter the DataFrame based on date and listening time.
 
-        Args:
-            min_date (datetime.date): Minimum date.
-            max_date (datetime.date): Maximum date.
-        """
-        self.df = self.df[
-            (self.df["ts_listen"].dt.date >= min_date)
-            & (self.df["ts_listen"].dt.date <= max_date)
-            & (self.df["listening_time"] >= 30)
-        ]
+    #     Args:
+    #         min_date (datetime.date): Minimum date.
+    #         max_date (datetime.date): Maximum date.
+    #     """
+    #     print(f"BEFORE FILTER = {len(self.df)}")
+    #     self.df = self.df[
+    #         (self.df["ts_listen"].dt.date >= min_date)
+    #         & (self.df["ts_listen"].dt.date <= max_date)
+    #         & (self.df["listening_time"] >= 30)
+    #     ]
+    #     print(f"AFTER FILTER = {len(self.df)}")
 
     def build_ids_list(self):
         """
@@ -99,58 +99,58 @@ class ProcessStreams:
         self.ids = self.ids[:keep_n]
         self.df = self.df[self.df["user_id"].isin(self.ids)]
 
-    def compute_is_organic(self):
-        """
-        Compute an 'is_organic' column based on the 'context_4' column.
-        """
-        self.df["is_organic"] = (self.df["context_4"] == "organic").astype(int)
+    # def compute_is_organic(self):
+    #     """
+    #     Compute an 'is_organic' column based on the 'context_4' column.
+    #     """
+    #     self.df["is_organic"] = (self.df["context_4"] == "organic").astype(int)
 
-    def identify_context(self, x):
-        """
-        Identify context types based on the 'context_type' column.
+    # def identify_context(self, x):
+    #     """
+    #     Identify context types based on the 'context_type' column.
 
-        Args:
-            x (str): The context string.
+    #     Args:
+    #         x (str): The context string.
 
-        Returns:
-            str: The identified context type.
-        """
-        context_keywords = ["album", "albums", "playlist", "playlists"]
-        if any(keyword in x for keyword in context_keywords):
-            return "album" if "album" in x or "albums" in x else "playlist"
-        return "other"
+    #     Returns:
+    #         str: The identified context type.
+    #     """
+    #     context_keywords = ["album", "albums", "playlist", "playlists"]
+    #     if any(keyword in x for keyword in context_keywords):
+    #         return "album" if "album" in x or "albums" in x else "playlist"
+    #     return "other"
 
-    def convert_context(self):
-        """
-        Convert the 'context_type' column to 'context_identified'.
-        """
-        self.df["context_identified"] = self.df["context_type"].progress_apply(
-            self.identify_context
-        )
+    # def convert_context(self):
+    #     """
+    #     Convert the 'context_type' column to 'context_identified'.
+    #     """
+    #     self.df["context_identified"] = self.df["context_type"].progress_apply(
+    #         self.identify_context
+    #     )
 
-    def is_fav(self, row, dict_liked):
-        """
-        Check if a row is marked as a favorite.
+    # def is_fav(self, row, dict_liked):
+    #     """
+    #     Check if a row is marked as a favorite.
 
-        Args:
-            row (pd.Series): The row to check.
-            dict_liked (dict): Dictionary of favorite items.
+    #     Args:
+    #         row (pd.Series): The row to check.
+    #         dict_liked (dict): Dictionary of favorite items.
 
-        Returns:
-            int: 1 if it's a favorite, 0 otherwise.
-        """
-        song_id = row.media_id
-        if "song" in dict_liked and song_id in dict_liked["song"]:
-            return 1
-        context_identified = row.context_identified
-        context_id = row.context_id
-        if (
-            context_identified in ["playlist", "album"]
-            and context_identified in dict_liked
-            and context_id in dict_liked[context_identified]
-        ):
-            return 1
-        return 0
+    #     Returns:
+    #         int: 1 if it's a favorite, 0 otherwise.
+    #     """
+    #     song_id = row.media_id
+    #     if "song" in dict_liked and song_id in dict_liked["song"]:
+    #         return 1
+    #     context_identified = row.context_identified
+    #     context_id = row.context_id
+    #     if (
+    #         context_identified in ["playlist", "album"]
+    #         and context_identified in dict_liked
+    #         and context_id in dict_liked[context_identified]
+    #     ):
+    #         return 1
+    #     return 0
 
     def process(self, min_date, max_date, n_subdivisions, instant_zero):
         """
@@ -164,13 +164,13 @@ class ProcessStreams:
         """
         self.import_data()
         self.convert_timestamps()
-        self.filter(min_date, max_date)
+        # self.filter(min_date, max_date)
         self.build_ids_list()
         self.filter_users()
         self.add_time_range(n_subdivisions, instant_zero)
         self.add_date()
-        self.compute_is_organic()
-        self.convert_context()
+        # self.compute_is_organic()
+        # self.convert_context()
         self.all_time_date_couples = set(
             [tuple(i) for i in self.df[["time_range", "date"]].to_numpy()]
         )
@@ -323,19 +323,19 @@ class ProcessStreams:
             id (int): User ID.
             channel_index (int): Index of the channel.
         """
-        liked_df_user = self.liked_df[self.liked_df["user_id"] == id]
-        dict_liked = dict(
-            liked_df_user[
-                liked_df_user["item_type"].isin(["album", "playlist", "song"])
-            ][["item_id", "item_type"]]
-            .groupby("item_type")
-            .agg(list)
-            .reset_index()
-            .values
-        )
-        df_user["is_fav"] = df_user.apply(
-            lambda row: self.is_fav(row, dict_liked), axis=1
-        )
+        # liked_df_user = self.liked_df[self.liked_df["user_id"] == id]
+        # dict_liked = dict(
+        #     liked_df_user[
+        #         liked_df_user["item_type"].isin(["album", "playlist", "song"])
+        #     ][["item_id", "item_type"]]
+        #     .groupby("item_type")
+        #     .agg(list)
+        #     .reset_index()
+        #     .values
+        # )
+        # df_user["is_fav"] = df_user.apply(
+        #     lambda row: self.is_fav(row, dict_liked), axis=1
+        # )
 
         df_user = df_user[df_user["is_fav"] == 1]
         full_df_liked = self.compute_ratio_df(df_user)

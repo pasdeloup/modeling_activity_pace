@@ -26,7 +26,7 @@ def process_data_for_DL():
     Returns:
         tuple: A tuple containing input data (X_list_array_clean) and target labels (y).
     """
-    X_list = [load_data(f"data/processed/streams/X_{i}.csv") for i in channel_names]
+    X_list = [load_data(f"data/timeseries/X_{i}.csv") for i in channel_names]
 
     ids = get_ids_from_signals(X_list)
     cols_to_predict = ANSWERS_ACTIVITY_COLUMNS

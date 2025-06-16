@@ -35,7 +35,7 @@ def process_data_for_classifier(
     - y_train_: Training labels.
     - y_test_: Test labels.
     """
-    X_list = [load_data(f"data/processed/streams/X_{i}.csv") for i in channel_names]
+    X_list = [load_data(f"data/timeseries/X_{i}.csv") for i in channel_names]
     D = np.load("results/dict_learning/D.npy")[:, :, :166]
 
     # Extract user IDs

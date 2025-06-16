@@ -105,7 +105,13 @@ def choose_best_dict(X, y, cols_to_predict):
         index=True,
     )
     plot_reconstruction_iterations_perfs(df_reconstruction_scores, "results/figures/reconstruction_scores_over_iterations.pdf")
-    best_iter = int(input("Choose the best iteration :  "))
+
+    ## Uncomment here to manually select the best iteration
+    # best_iter = int(input("Choose the best iteration :  "))
+
+    best_iter = class_scores.index(max(class_scores))
+    print(f"Best iteration is {best_iter} with score {class_scores[best_iter]}")
+
     shutil.copy(
         DICT_ITER_PATH
         + [f"D_{i}.npy" for i in range(len(os.listdir(DICT_ITER_PATH)))][best_iter],

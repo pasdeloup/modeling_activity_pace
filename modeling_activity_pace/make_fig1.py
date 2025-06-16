@@ -31,12 +31,12 @@ def add_time_range(df, n_subdivisions, instant_zero):
 
 # Import data
 
-df_processed = load_data("data/processed/streams/X_volume.csv")
+df_processed = load_data("data/timeseries/X_volume.csv")
 
 
 streams_df_list = []
-for i in tqdm(os.listdir("data/raw/streams/")):
-    df_streams = load_data("data/raw/streams/" + i).reset_index()
+for i in tqdm(os.listdir("data/streams/")):
+    df_streams = load_data("data/streams/" + i).reset_index()
     streams_df_list.append(df_streams[df_streams["user_id"] == SELECTED_USER_ID])
 
 df = pd.concat(streams_df_list)

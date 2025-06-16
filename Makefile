@@ -19,6 +19,9 @@ usage:
 build:
 	docker build -t $(DOCKER_IMAGE_NAME) .
 
+all:
+	$(DOCKER_RUN_MOUNT) /bin/bash modeling_activity_pace/run_all.sh || true
+
 run-bash: build
 	$(DOCKER_RUN_MOUNT) /bin/bash || true
 

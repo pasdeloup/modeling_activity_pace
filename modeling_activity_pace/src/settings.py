@@ -8,8 +8,9 @@ MIN_DATE = dt.date(2022, 1, 1)
 MAX_DATE = dt.date(2023, 5, 19)
 INSTANT_ZERO = dt.datetime(2022, 12, 26)
 
-ANSWERS_PATH = "data/processed/answers/processed_records.csv"
+ANSWERS_PATH = "data/answers/processed_records.csv"
 DICT_ITER_PATH = "results/dict_learning/all_iterations/"
+TIME_SERIES_PATH = "data/timeseries"
 
 ANSWERS_ACTIVITY_COLUMNS = [
     "activity_wake_up",
