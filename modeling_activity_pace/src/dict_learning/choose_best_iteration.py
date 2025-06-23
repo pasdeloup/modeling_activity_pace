@@ -109,7 +109,8 @@ def choose_best_dict(X, y, cols_to_predict):
     ## Uncomment here to manually select the best iteration
     # best_iter = int(input("Choose the best iteration :  "))
 
-    best_iter = class_scores.index(max(class_scores))
+    best_iter_offset = 5
+    best_iter = best_iter_offset + class_scores[best_iter_offset:].index(max(class_scores[best_iter_offset:]))
     print(f"Best iteration is {best_iter} with score {class_scores[best_iter]}")
 
     shutil.copy(
