@@ -3,7 +3,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.process_answers import ProcessAnswers
-from src.settings import channel_names, ANSWERS_PATH
+from src.settings import TIME_SERIES_PATH, channel_names, ANSWERS_PATH
 from src.helpers import load_data, get_ids_from_signals
 from src.process_raw_data.answers_helpers import process_data_for_classifier
 from src.modeling_functions import (
@@ -25,7 +25,7 @@ def compute_other_activities_baseline(cols_to_predict):
     Returns:
     - List of AUC scores.
     """
-    X_list = [load_data(f"data/timeseries/X_{i}.csv") for i in channel_names]
+    X_list = [load_data(f"{TIME_SERIES_PATH}/X_{i}.csv") for i in channel_names]
 
     # Extract user IDs
     ids = get_ids_from_signals(X_list)
@@ -80,7 +80,7 @@ def compute_total_volume_baseline(cols_to_predict):
     """
 
     # Load volume data
-    df_volume = load_data("data/timeseries/X_volume.csv")
+    df_volume = load_data(f"{TIME_SERIES_PATH}/X_volume.csv")
 
     # Sum the volume across time (transpose and sum)
     df = pd.DataFrame(df_volume.T.sum(), columns=["Total volume"])

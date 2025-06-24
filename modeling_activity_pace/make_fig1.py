@@ -10,6 +10,7 @@ from tqdm import tqdm
 from src.settings import (
     N_SUBDIVISION_1HOUR,
     INSTANT_ZERO,
+    TIME_SERIES_PATH,
     time_labels_full,
     time_labels,
 )
@@ -31,7 +32,7 @@ def add_time_range(df, n_subdivisions, instant_zero):
 
 # Import data
 
-df_processed = load_data("data/timeseries/X_volume.csv")
+df_processed = load_data(f"{TIME_SERIES_PATH}/X_volume.csv")
 
 
 streams_df_list = []

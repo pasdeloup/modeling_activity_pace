@@ -6,6 +6,7 @@ from src.process_answers import ProcessAnswers
 from src.helpers import load_data, get_ids_from_signals
 from src.modeling_functions import convolve_signals, normalize_signals, split
 from src.settings import (
+    TIME_SERIES_PATH,
     channel_names,
     n_channels,
     ANSWERS_PATH,
@@ -35,7 +36,7 @@ def process_data_for_classifier(
     - y_train_: Training labels.
     - y_test_: Test labels.
     """
-    X_list = [load_data(f"data/timeseries/X_{i}.csv") for i in channel_names]
+    X_list = [load_data(f"{TIME_SERIES_PATH}/X_{i}.csv") for i in channel_names]
     D = np.load("results/dict_learning/D.npy")[:, :, :166]
 
     # Extract user IDs
