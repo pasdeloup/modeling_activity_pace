@@ -95,13 +95,10 @@ class ProcessStreams:
         """
         self.import_data()
         self.convert_timestamps()
-        # self.filter(min_date, max_date)
         self.build_ids_list()
         self.filter_users()
         self.add_time_range(n_subdivisions, instant_zero)
         self.add_date()
-        # self.compute_is_organic()
-        # self.convert_context()
         self.all_time_date_couples = set(
             [tuple(i) for i in self.df[["time_range", "date"]].to_numpy()]
         )
