@@ -19,7 +19,6 @@ from src.helpers import load_data, save_figure, build_result_folder
 tqdm.pandas()
 
 build_result_folder()
-SELECTED_USER_ID = 3356219324
 
 
 def add_time_range(df, n_subdivisions, instant_zero):
@@ -34,6 +33,7 @@ def add_time_range(df, n_subdivisions, instant_zero):
 
 df_processed = load_data(f"{TIME_SERIES_PATH}/X_volume.csv")
 
+SELECTED_USER_ID = df_processed.index[0]
 
 streams_df_list = []
 for i in tqdm(os.listdir("data/streams/")):
